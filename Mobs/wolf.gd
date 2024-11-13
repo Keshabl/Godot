@@ -100,6 +100,7 @@ func perform_attack(animation_name, damage, knockback=false):
 	if attack:
 		if damage > 0:
 			player.health -= damage
+			give_damage()
 		if knockback:
 			player.movable = false
 			player.velocity.y -= 300
@@ -109,6 +110,17 @@ func perform_attack(animation_name, damage, knockback=false):
 				player.velocity.x += 500
 	change_state = true
 		
+
+func give_damage():
+	if player.health > 0:
+		player.movable = false
+		player.velocity.y -= 100
+		if $AnimatedSprite2D.flip_h:
+			player.velocity.x -= 150
+		else:
+			player.velocity.x += 150
+		player.anim.play("damage")
+		player.movable = true
 
 func chase_state():
 	change_state = false

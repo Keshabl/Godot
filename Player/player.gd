@@ -7,6 +7,7 @@ const JUMP_VELOCITY = -400.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var health = 100
+var health_check = health
 var wolf = preload("res://Mobs/wolf.tscn")
 @onready var anim = $AnimatedSprite2D
 var alive = true
@@ -118,7 +119,7 @@ func _on_left_attack_body_entered(body):
 		enemy = body
 
 
-func _on_left_attack_body_exited(body):
+func _on_left_attack_body_exited(_body):
 	if direction == -1:
 		enemy = null
 
@@ -128,6 +129,6 @@ func _on_right_attack_body_entered(body):
 		enemy = body
 
 
-func _on_right_attack_body_exited(body):
+func _on_right_attack_body_exited(_body):
 	if direction == 1:
 		enemy = null
