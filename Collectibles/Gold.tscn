@@ -1,0 +1,112 @@
+[gd_scene load_steps=14 format=3 uid="uid://b60xwwmvv1jr1"]
+
+[ext_resource type="Texture2D" uid="uid://uj007bxwn7f7" path="res://Sprites/CoinsV2_outline_18x18res.png" id="1_vl4jc"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jhj6r"]
+bounce = 0.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6o6aq"]
+radius = 4.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrt4y"]
+atlas = ExtResource("1_vl4jc")
+region = Rect2(0, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqi21"]
+atlas = ExtResource("1_vl4jc")
+region = Rect2(18, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_518rn"]
+atlas = ExtResource("1_vl4jc")
+region = Rect2(36, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nnuc"]
+atlas = ExtResource("1_vl4jc")
+region = Rect2(54, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v40qv"]
+atlas = ExtResource("1_vl4jc")
+region = Rect2(72, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6bg5"]
+atlas = ExtResource("1_vl4jc")
+region = Rect2(90, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o348w"]
+atlas = ExtResource("1_vl4jc")
+region = Rect2(108, 0, 18, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dh4w3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrt4y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cqi21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_518rn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2nnuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v40qv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6bg5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o348w")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_air36"]
+script/source = "extends Area2D
+
+# Called when the node enters the scene tree for the first time.
+func _on_body_entered(body):
+	if body.name == \"Player\":
+		var tween = get_tree().create_tween()
+		var tween1 = get_tree().create_tween()
+		tween.tween_property($\"..\", \"position\", $\"..\".position - Vector2(0,25), 0.3 )
+		tween1.tween_property($\"..\", \"modulate:a\", 0, 0.3 )
+		tween.tween_callback(queue_free)
+		body.gold += 1
+		$\"..\".queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kn780"]
+radius = 4.0
+
+[node name="Gold" type="RigidBody2D"]
+collision_layer = 255
+collision_mask = 255
+physics_material_override = SubResource("PhysicsMaterial_jhj6r")
+lock_rotation = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 1023
+visibility_layer = 1023
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_6o6aq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.444444, 0.444444)
+sprite_frames = SubResource("SpriteFrames_dh4w3")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.933143
+
+[node name="Area2D" type="Area2D" parent="."]
+script = SubResource("GDScript_air36")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_kn780")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

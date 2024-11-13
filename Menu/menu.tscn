@@ -1,0 +1,98 @@
+[gd_scene load_steps=16 format=3 uid="uid://drrd0vomgthrf"]
+
+[ext_resource type="Script" path="res://Menu/menu.gd" id="1_64qin"]
+[ext_resource type="PackedScene" uid="uid://dmo3vit1fvu82" path="res://Level 1/bg.tscn" id="2_nbrp3"]
+[ext_resource type="AudioStream" uid="uid://dsuba7jkxtk1n" path="res://Sound/menu.mp3" id="3_ut04r"]
+[ext_resource type="Texture2D" uid="uid://b8mettbkeerha" path="res://Sprites/Menu/start.png" id="4_g2b0x"]
+[ext_resource type="Texture2D" uid="uid://cj3a4s227u87o" path="res://Sprites/Menu/other.png" id="5_74638"]
+[ext_resource type="Texture2D" uid="uid://carndsskg2wqb" path="res://Sprites/Menu/start_pressed.png" id="5_lejxk"]
+[ext_resource type="Texture2D" uid="uid://c70eb64ny72gp" path="res://Sprites/Menu/start_hover.png" id="6_4wgu1"]
+[ext_resource type="Shader" path="res://Level 1/level.gdshader" id="6_5c7uw"]
+[ext_resource type="Texture2D" uid="uid://dx6e33j488mci" path="res://Sprites/Menu/other_pressed.png" id="8_i07el"]
+[ext_resource type="Texture2D" uid="uid://s6ra8a1ak0s1" path="res://Sprites/Menu/other_hover.png" id="9_ae4b7"]
+[ext_resource type="Texture2D" uid="uid://d1l1oimcnj3nm" path="res://Sprites/Menu/back.png" id="9_audsi"]
+[ext_resource type="Texture2D" uid="uid://bs8a4gpwk2wn0" path="res://Sprites/Menu/exit.png" id="10_t6ipk"]
+[ext_resource type="Texture2D" uid="uid://gajqhdgsg7la" path="res://Sprites/Menu/exit_pressed.png" id="11_4rdgc"]
+[ext_resource type="Texture2D" uid="uid://6fdpibnlfean" path="res://Sprites/Menu/exit_hover.png" id="12_cryt3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ygnk0"]
+shader = ExtResource("6_5c7uw")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.0
+shader_parameter/scanlines_width = 0.0
+shader_parameter/grille_opacity = 0.0
+shader_parameter/resolution = Vector2(1280, 720)
+shader_parameter/pixelate = false
+shader_parameter/roll = false
+shader_parameter/roll_speed = 0.0
+shader_parameter/roll_size = 0.0
+shader_parameter/roll_variation = 0.1
+shader_parameter/distort_intensity = 0.0
+shader_parameter/noise_opacity = 0.0
+shader_parameter/noise_speed = 0.0
+shader_parameter/static_noise_intensity = 0.02
+shader_parameter/aberration = 4.75e-08
+shader_parameter/brightness = 1.0
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 1.18
+shader_parameter/vignette_opacity = 0.15
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_64qin")
+
+[node name="BG" parent="." instance=ExtResource("2_nbrp3")]
+offset = Vector2(0, -919.01)
+transform = Transform2D(4.5, 0, 0, 4.5, 0, -919.01)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_ut04r")
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="TextureButton" parent="CanvasLayer"]
+offset_left = 538.0
+offset_top = 230.0
+offset_right = 1242.0
+offset_bottom = 458.0
+scale = Vector2(1.2, 1.2)
+texture_normal = ExtResource("4_g2b0x")
+texture_pressed = ExtResource("5_lejxk")
+texture_hover = ExtResource("6_4wgu1")
+
+[node name="Button2" type="TextureButton" parent="CanvasLayer"]
+offset_left = 557.0
+offset_top = 580.0
+offset_right = 1229.0
+offset_bottom = 688.0
+scale = Vector2(1.2, 1.2)
+texture_normal = ExtResource("5_74638")
+texture_pressed = ExtResource("8_i07el")
+texture_hover = ExtResource("9_ae4b7")
+
+[node name="Button3" type="TextureButton" parent="CanvasLayer"]
+offset_left = 557.0
+offset_top = 740.0
+offset_right = 1229.0
+offset_bottom = 848.0
+scale = Vector2(1.2, 1.2)
+texture_normal = ExtResource("10_t6ipk")
+texture_pressed = ExtResource("11_4rdgc")
+texture_hover = ExtResource("12_cryt3")
+
+[node name="VHS" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_ygnk0")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="Back" type="Sprite2D" parent="."]
+position = Vector2(960, 539.5)
+scale = Vector2(1.5, 1.49861)
+texture = ExtResource("9_audsi")
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Button3" to="." method="_on_button_3_pressed"]

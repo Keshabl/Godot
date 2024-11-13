@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccwogl3kgmp8"]
+
+[ext_resource type="Script" path="res://scripts/Back_Ground.gd" id="1_me3jm"]
+[ext_resource type="Texture2D" uid="uid://dc8mmeq0iajns" path="res://backgrounds/BG_3/BG_3.png" id="2_fic42"]
+[ext_resource type="Texture2D" uid="uid://bbj1dqomaarf" path="res://backgrounds/BG_2/BG_2.png" id="3_qfq4e"]
+[ext_resource type="Texture2D" uid="uid://ctk6v85j1shmy" path="res://backgrounds/BG_1/BG_1.png" id="4_4b5ap"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+script = ExtResource("1_me3jm")
+
+[node name="BackLayer1" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.2, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="BackLayer1"]
+position = Vector2(1273, -1)
+scale = Vector2(1.6225, 1.6225)
+texture = ExtResource("2_fic42")
+centered = false
+
+[node name="BackLayer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.2, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="BackLayer2"]
+scale = Vector2(0.619345, 1.62)
+texture = ExtResource("2_fic42")
+centered = false
+
+[node name="MidLayer1" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.4, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="MidLayer1"]
+scale = Vector2(0.998349, 1.62)
+texture = ExtResource("3_qfq4e")
+centered = false
+
+[node name="MidLayer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.4, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="MidLayer2"]
+position = Vector2(1464, 1)
+scale = Vector2(1.16911, 1.6175)
+texture = ExtResource("3_qfq4e")
+centered = false
+
+[node name="FrontLayer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.8, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="FrontLayer2"]
+scale = Vector2(1.26801, 1.62)
+texture = ExtResource("4_4b5ap")
+centered = false
+
+[node name="FrontLayer1" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.8, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="FrontLayer1"]
+position = Vector2(2347, 1.19209e-07)
+scale = Vector2(1.26801, 1.62)
+texture = ExtResource("4_4b5ap")
+centered = false

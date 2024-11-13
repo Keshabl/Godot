@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://7y2ttvru5hxc"]
+
+[sub_resource type="GDScript" id="GDScript_d4rx3"]
+script/source = "extends Area2D
+
+var spawn = true
+var free = true
+
+func _on_timer_timeout():
+	if spawn == true and free == true:
+		free = false
+		var rand = randi_range(1,2)
+		if rand == 1:
+			get_node(\"../..\").spawn_mob(\"wolf\", self.position)
+
+
+
+
+func _on_body_entered(body):
+	if body.name == \"Player\":
+		spawn = false
+
+func _on_body_exited(body):
+	if body.name == \"Player\":
+		spawn = true
+	if body.name == \"wolf\":
+		free = true
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ve5kj"]
+radius = 56.0
+
+[node name="Spawner" type="Area2D"]
+script = SubResource("GDScript_d4rx3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CircleShape2D_ve5kj")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
